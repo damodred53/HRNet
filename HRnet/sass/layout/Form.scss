@@ -1,0 +1,30 @@
+
+
+.section_form {
+
+    width: 100%;
+    @include displayFlexJustified;
+}
+
+.form {
+    margin-top: 2rem;
+    flex-direction: column;
+    width: 20rem;
+    &_div {
+        @include displayFlexLeftLabel;
+        gap: 0.5rem;
+        font-size: 22px;
+        margin-bottom: 1rem;
+
+        input {
+            height: 1.5rem;
+        }
+    }
+
+    &_fieldset {
+
+        legend {
+            font-size: 22px;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+
+.button {
+
+    width:auto;
+    
+    &_self {
+        width: 10rem;
+        height: 2.5rem;
+        border: 2px black solid;
+        background-color: green;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        border-radius: 10px;
+
+    }
+}

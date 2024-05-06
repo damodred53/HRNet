@@ -7,8 +7,12 @@
 //imports des fichiers du dossier utils
 @import "../sass/utils/Mixin.scss";
 
+// import des fichiers du dossier components
+@import "../sass/components/Button.scss";
+
 
 //imports des fichiers du dossier Layout
 @import "../sass/layout/Header.scss";
 @import "../sass/layout/CreateEmployee.scss";
+@import "../sass/layout/Form.scss";
 

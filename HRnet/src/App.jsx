@@ -1,5 +1,7 @@
 import Header from "./Components/Header/Header";
 import CreateEmployee from "./Components/CreateEmployee/CreateEmployee";
+import Form from "./Components/Form/Form";
+
 
 function App() {
 
@@ -8,6 +10,7 @@ function App() {
       <div>
         <Header />
         <CreateEmployee />
+        <Form />
       </div>
     </>
   )
