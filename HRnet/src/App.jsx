@@ -1,4 +1,5 @@
-import Header from "./Components/Header/Header"
+import Header from "./Components/Header/Header";
+import CreateEmployee from "./Components/CreateEmployee/CreateEmployee";
 
 function App() {
 
@@ -6,7 +7,7 @@ function App() {
     <>
       <div>
         <Header />
-        <p>Coucou Florent</p>
+        <CreateEmployee />
       </div>
     </>
   )

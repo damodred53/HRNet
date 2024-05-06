@@ -1,0 +1,28 @@
+
+.createemployee {
+
+    @include displayFlexJustified;
+    width: 100%;
+
+    &_span {
+
+        text-align: center;
+
+        &_link {
+
+            text-decoration: none;
+            color: green;
+            
+            
+        }
+
+        &_title1 {
+            cursor: pointer;
+            font-size: 2rem;
+        }
+    
+        &_title2 {
+            font-size: 2rem;
+        }
+    }
+}
