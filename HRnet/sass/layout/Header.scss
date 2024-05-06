@@ -1,0 +1,13 @@
+
+.header {
+    @include displayFlexJustified;
+    width: 100%;
+    background-color: green;
+
+    
+    &_title {
+        color: white;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
