@@ -1,8 +1,27 @@
 import Button from "../Button/Button";
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import { useState, useEffect } from "react";
 
 const Form = () => {
 
+    const [ birthDate, setBirthDate ] = useState(new Date());
+    const [ startDate, setStartDate ] = useState(new Date());
 
+    const handleChange = (event) => {
+        setBirthDate(event);
+    };
+
+    const handleChangeStart = (event) => {
+        setStartDate(event);
+    };
+
+    useEffect(() => {
+        setBirthDate();
+        setStartDate();
+    }, [])
+    
     return (
 
         <section className="section_form">
@@ -20,12 +39,12 @@ const Form = () => {
 
                 <div className="form_div">
                     <label htmlFor="birth">Date of Birth</label>
-                    <input type="text" id="birth"></input>
+                    <DatePicker onChange={(event) => handleChange(event)} value={birthDate}/>
                 </div>
 
                 <div className="form_div">
                     <label htmlFor="start">Start Date</label>
-                    <input type="text" id="start"></input>
+                    <DatePicker onChange={(event) => handleChangeStart(event)} value={startDate} />
                 </div>
 
                 <fieldset className="form_fieldset">
