@@ -3,11 +3,51 @@ import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import { useState, useEffect } from "react";
+import Select from "react-dropdown-select";
+import  optionsState from "./StateData.jsx";
+
 
 const Form = () => {
 
+    console.log(optionsState)
+
+    const options = [
+        {
+            value: 1,
+            label: 'Sales'
+          },
+          {
+            value: 2,
+            label: 'Marketing'
+          },
+          {
+            value: 3,
+            label: 'Engineering'
+          },
+          {
+            value: 4,
+            label: 'Human Resources'
+          },
+          {
+            value: 5,
+            label: 'Legal'
+          },
+    ];
+
+    /*const options = [
+        {
+          value: 1,
+          label: 'Leanne Graham'
+        },
+        {
+          value: 2,
+          label: 'Ervin Howell'
+        }
+      ];*/
+
     const [ birthDate, setBirthDate ] = useState(new Date());
     const [ startDate, setStartDate ] = useState(new Date());
+
 
     const handleChange = (event) => {
         setBirthDate(event);
@@ -17,11 +57,15 @@ const Form = () => {
         setStartDate(event);
     };
 
+    /*const handleChangeDepartment = (event) => {
+        console.log(event)
+    }*/
+
     useEffect(() => {
         setBirthDate();
         setStartDate();
     }, [])
-    
+
     return (
 
         <section className="section_form">
@@ -62,6 +106,7 @@ const Form = () => {
 
                     <div className="form_div">
                         <label>State</label>
+                       <Select options={optionsState} />
                     </div>
 
                     <div className="form_div">
@@ -73,6 +118,7 @@ const Form = () => {
 
                     <div className="form_fieldset_state">
                         <label>Department</label>
+                        <Select options={options}  />
                     </div>
 
                 <Button />
