@@ -23,8 +23,18 @@
 
     &_fieldset {
 
+        margin-bottom: 2rem;
+
         legend {
             font-size: 22px;
         }
     }
+
+    &_department {
+        @include displayFlexLeftLabel;
+        row-gap: 1rem;
+        font-size: 22px;
+        margin-bottom: 2rem;
+    }
+
 }

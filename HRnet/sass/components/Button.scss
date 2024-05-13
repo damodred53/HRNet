@@ -2,6 +2,7 @@
 .button {
 
     width:auto;
+    @include displayFlexJustified;
     
     &_self {
         width: 10rem;
