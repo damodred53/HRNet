@@ -7,17 +7,22 @@ import Select from "react-dropdown-select";
 import  optionsState from "./StateData.jsx";
 import optionsDepartment from "./DepartmentData.jsx";
 import Modal_module from "modal_florent_guyard";
+import {useDispatch, useSelector} from "react-redux";
+import { addEmployee } from "../../redux.js";
+import dateFormater from "../../utils/dateFormater.js";
+import typeVerification from "../../utils/typeVerification.js";
 
 
-const Form = () => {
+const Form = ({employeeData}) => {
 
-    
-
-    const [ birthDate, setBirthDate ] = useState(new Date());
-    const [ startDate, setStartDate ] = useState(new Date());
+    const [ birthDate, setBirthDate ] = useState();
+    const [ startDate, setStartDate ] = useState();
     const [isModaleVisible, setIsModaleVisible] = useState(false);
-    
+    const [formData, setFormData] = useState([]);
 
+    
+    const dispatch = useDispatch();
+    
     useEffect(() => {
 
         const searchModal = document.querySelector('.modal');
@@ -42,12 +47,16 @@ const Form = () => {
     },[isModaleVisible])
 
     const handleChange = (event) => {
-        setBirthDate(event);
-        console.log(birthDate)
+        console.log(event)
+        /*const formatedBirthDate = dateFormater(event);*/
+        setBirthDate(event)
     };
 
-    const handleChangeStart = (event) => {
+    const handleChangeStart = (event) => {   
         setStartDate(event);
+        /*const formatedStartDate = dateFormater(event)*/
+
+        /*return formatedStartDate*/
     };
 
 
@@ -55,7 +64,8 @@ const Form = () => {
         event.preventDefault()
         let stateValue;
         let departmentValue;
-
+        let employeeData = {};
+        
         const firstName = document.getElementById('first_name').value;
         const lastName = document.getElementById('last_name').value;
         const street = document.getElementById('street').value;
@@ -70,22 +80,36 @@ const Form = () => {
             departmentValue = department.querySelector(".react-dropdown-select-content").textContent;
         }
 
+        const formatedBirthDate = dateFormater(birthDate);
+        const formatedStartDate = dateFormater(startDate);
 
-        /*console.log("firstname : ", firstName);
-        console.log("lastName : ", lastName);
-        console.log("birth :", birthDate);
-        console.log("start :", startDate);
-        console.log("state :", stateValue);
-        console.log("street : ", street);
-        console.log("city : ", city);
-        console.log("zipCode : ", zipCode);
-        console.log("department :", departmentValue);*/
 
-        setIsModaleVisible(true);
+        employeeData = {
+            firstName : firstName,
+            lastName : lastName,
+            birthDate : formatedBirthDate,
+            startDate : formatedStartDate,
+            stateValue : stateValue,
+            street : street,
+            city : city,
+            zipCode : zipCode,
+            departmentValue : departmentValue
+        }
 
+        
+      
+        const isFormValid = typeVerification(employeeData)
+       
+        if (isFormValid) {
+            dispatch(addEmployee(employeeData));
+            console.log(state);
+            setIsModaleVisible(true);
+        } else {
+            throw new Error ('veuillez remplir tous les champs correctement');
+        }
+            
+        
     }
-
-
 
     return (
 
@@ -94,22 +118,24 @@ const Form = () => {
 
                 <div className="form_div">
                     <label htmlFor="first_name">First Name</label>
-                    <input type="text" id="first_name"></input>
+                    <input type="text" id="first_name" ></input>
+                    <p className="form_div_error_paragraph" id="form_div_firstname">please complete this form using letters </p>
                 </div>
 
                 <div className="form_div">
                     <label htmlFor="last_name">Last Name</label>
-                    <input type="text" id="last_name"></input>
+                    <input type="text" id="last_name" ></input>
+                    <p className="form_div_error_paragraph" id="form_div_lastname" >please complete this form using letters </p>
                 </div>
 
                 <div className="form_div">
                     <label htmlFor="birth">Date of Birth</label>
-                    <DatePicker onChange={(event) => handleChange(event)} value={birthDate} id="birth"/>
+                    <DatePicker onChange={(event) => handleChange(event)} value={birthDate} id="birth" />
                 </div>
 
                 <div className="form_div">
                     <label htmlFor="start">Start Date</label>
-                    <DatePicker onChange={(event) => handleChangeStart(event)} value={startDate} />
+                    <DatePicker onChange={(event) => handleChangeStart(event)} value={startDate}  />
                 </div>
 
                 <fieldset className="form_fieldset">
@@ -117,23 +143,26 @@ const Form = () => {
 
                     <div className="form_div">
                         <label>Street</label>
-                        <input type="text" id="street"></input>
+                        <input type="text" id="street" ></input>
+                        <p className="form_div_error_paragraph" id="form_div_street">please complete this form using letters </p>
                     </div>
                     
                     <div className="form_div">
                         <label>City</label>
-                        <input type="text" id="city"></input>
+                        <input type="text" id="city" ></input>
+                        <p className="form_div_error_paragraph" id="form_div_city">please complete this form using letters </p>
                     </div>
 
                     <div className="form_div">
                         <label>State</label>
-                        <span className="state"><Select options={optionsState}  /></span>
+                        <span className="state"><Select options={optionsState} /></span>
                        
                     </div>
 
                     <div className="form_div">
                         <label>Zip Code</label>
                         <input type="text" id="zip_code"></input>
+                        <p className="form_div_error_paragraph" id="form_div_zip_code">please complete this form</p>
                     </div>
 
                 </fieldset>
@@ -153,5 +182,10 @@ const Form = () => {
         </section>
     )
 }
+
+
+
+
+
 
 export default Form;

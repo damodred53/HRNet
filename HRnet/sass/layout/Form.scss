@@ -19,6 +19,13 @@
         input {
             height: 1.5rem;
         }
+
+        &_error_paragraph {
+            color: red;
+            margin: 0%;
+            font-size: 16px;
+            display: none;
+        }
     }
 
     &_fieldset {
@@ -36,5 +43,7 @@
         font-size: 22px;
         margin-bottom: 2rem;
     }
+
+    
 
 }
