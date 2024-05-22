@@ -2,7 +2,7 @@ import Button from "../Button/Button";
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Select from "react-dropdown-select";
 import  optionsState from "./StateData.jsx";
 import optionsDepartment from "./DepartmentData.jsx";
@@ -19,14 +19,76 @@ const Form = ({employeeData}) => {
     const [ startDate, setStartDate ] = useState();
     const [isModaleVisible, setIsModaleVisible] = useState(false);
     const [formData, setFormData] = useState([]);
-
+    const refDate = useRef(null);
+    const refStart = useRef(null);
+    const departmentRef = useRef(null);
+    const stateRef = useRef(null);
     
     const dispatch = useDispatch();
     
     useEffect(() => {
 
+        if (refDate.current) 
+        {
+            refDate.current.setAttribute('aria-label', 'Description');
+            const childDate = refDate.current.children[1];
+            childDate.setAttribute('role', 'menu')
+            const firstButton = childDate.querySelector('.react-date-picker__clear-button');
+            const secondButton = childDate.querySelector('.react-date-picker__calendar-button');
+            
+            firstButton.setAttribute('role', 'menuitem')
+            firstButton.setAttribute('aria-label', 'remove the date')
+            firstButton.setAttribute('title', 'Remove the date')
+            secondButton.setAttribute('role', 'menuitem')
+            secondButton.setAttribute('aria-label', 'Open the calendar');
+            secondButton.setAttribute('title', 'Open the calendar')
+            /*console.log("la croix : ", firstButton)*/
+            const firstIcon = firstButton.querySelector('.react-date-picker__clear-button__icon')
+            firstIcon.setAttribute("aria-hidden", "true");
+            /*console.log("le petit calendrier :", secondButton)*/
+
+
+        }
+
+        if (refStart.current)
+        {
+            refStart.current.setAttribute('aria-label', 'Description');
+            const childStart = refStart.current.children[1];
+            childStart.setAttribute('role', "menu")
+            console.log(childStart)
+            const firstButton = childStart.querySelector('.react-date-picker__clear-button');
+            const secondButton = childStart.querySelector('.react-date-picker__calendar-button');
+            firstButton.setAttribute('role', 'menuitem')
+            firstButton.setAttribute('aria-label', 'remove the date')
+            firstButton.setAttribute('title', 'Remove the date')
+            secondButton.setAttribute('role', 'menuitem')
+            secondButton.setAttribute('aria-label', 'Open the calendar');
+            secondButton.setAttribute('title', 'Open the calendar')
+        }
+
+        if (departmentRef.current) {
+            const childDepartment = departmentRef.current.children[0];
+            const childDepartment2 = childDepartment.children[0];
+            childDepartment2.setAttribute('role', "menu")
+
+        }
+
+        if (stateRef.current) {
+            const childState = stateRef.current.children[1];
+            const childDepartment2 = childState.children[0];
+            const childDepartment3 = childDepartment2.children[0]
+            childDepartment3.setAttribute('role', "menu")
+        }
+
+
+
+
+
+
+
+ 
+
         const searchModal = document.querySelector('.modal');
-        console.log(searchModal);
 
         if(searchModal) {
 
@@ -54,9 +116,6 @@ const Form = ({employeeData}) => {
 
     const handleChangeStart = (event) => {   
         setStartDate(event);
-        /*const formatedStartDate = dateFormater(event)*/
-
-        /*return formatedStartDate*/
     };
 
 
@@ -114,71 +173,70 @@ const Form = ({employeeData}) => {
     return (
 
         <section className="section_form">
-            <form className="form" onSubmit={(event) => handleSubmit(event)}>
+            <form className="form" onSubmit={(event) => handleSubmit(event)} aria-labelledby="form-title">
+                <h1 id="form-title" hidden>Employee Form</h1>
 
                 <div className="form_div">
                     <label htmlFor="first_name">First Name</label>
-                    <input type="text" id="first_name" ></input>
-                    <p className="form_div_error_paragraph" id="form_div_firstname">please complete this form using letters </p>
+                    <input type="text" id="first_name" aria-required="true" aria-describedby="form_div_firstname" />
+                    <p className="form_div_error_paragraph" id="form_div_firstname" role="alert">Please complete this form using letters</p>
                 </div>
 
                 <div className="form_div">
                     <label htmlFor="last_name">Last Name</label>
-                    <input type="text" id="last_name" ></input>
-                    <p className="form_div_error_paragraph" id="form_div_lastname" >please complete this form using letters </p>
+                    <input type="text" id="last_name" aria-required="true" aria-describedby="form_div_lastname" />
+                    <p className="form_div_error_paragraph" id="form_div_lastname" role="alert">Please complete this form using letters</p>
                 </div>
 
-                <div className="form_div">
-                    <label htmlFor="birth">Date of Birth</label>
-                    <DatePicker onChange={(event) => handleChange(event)} value={birthDate} id="birth" />
+                <div ref={refDate} className="form_div">
+                    <label htmlFor="birth" id="form-birth">Date of Birth</label>
+                    <DatePicker  onChange={(event) => handleChange(event)} value={birthDate} id="birth" aria-required="true" aria-labelledby="form-birth" />
                 </div>
 
-                <div className="form_div">
-                    <label htmlFor="start">Start Date</label>
-                    <DatePicker onChange={(event) => handleChangeStart(event)} value={startDate}  />
+                <div ref={refStart} className="form_div">
+                    <label htmlFor="start" id="form-start">Start Date</label>
+                    <DatePicker  onChange={(event) => handleChangeStart(event)} value={startDate} id="start" aria-required="true" aria-labelledby="form-start" />
                 </div>
 
-                <fieldset className="form_fieldset">
-                    <legend>Address</legend>
+                <fieldset className="form_fieldset" aria-labelledby="address-legend">
+                    <legend id="address-legend">Address</legend>
 
                     <div className="form_div">
-                        <label>Street</label>
-                        <input type="text" id="street" ></input>
-                        <p className="form_div_error_paragraph" id="form_div_street">please complete this form using letters </p>
-                    </div>
-                    
-                    <div className="form_div">
-                        <label>City</label>
-                        <input type="text" id="city" ></input>
-                        <p className="form_div_error_paragraph" id="form_div_city">please complete this form using letters </p>
+                        <label htmlFor="street">Street</label>
+                        <input type="text" id="street" aria-required="true" aria-describedby="form_div_street" />
+                        <p className="form_div_error_paragraph" id="form_div_street" role="alert">Please complete this form using letters</p>
                     </div>
 
                     <div className="form_div">
-                        <label>State</label>
-                        <span className="state"><Select options={optionsState} /></span>
-                       
+                        <label htmlFor="city">City</label>
+                        <input type="text" id="city" aria-required="true" aria-describedby="form_div_city" />
+                        <p className="form_div_error_paragraph" id="form_div_city" role="alert">Please complete this form using letters</p>
                     </div>
 
-                    <div className="form_div">
-                        <label>Zip Code</label>
-                        <input type="text" id="zip_code"></input>
-                        <p className="form_div_error_paragraph" id="form_div_zip_code">please complete this form</p>
-                    </div>
-
-                </fieldset>
-
-                    <div className="form_department">
-                        <label>Department</label>
-                        <span className="department">
-                            <Select options={optionsDepartment}  />
+                    <div className="form_div" ref={stateRef}>
+                        <label htmlFor="state">State</label>
+                        <span className="state">
+                            <Select options={optionsState} aria-labelledby="state-label" />
                         </span>
                     </div>
 
-                <Button className= "form_button" />
-            </form>
-                {isModaleVisible ? <Modal_module /> : ""}
-                
+                    <div className="form_div">
+                        <label htmlFor="zip_code">Zip Code</label>
+                        <input type="text" id="zip_code" aria-required="true" aria-describedby="form_div_zip_code" />
+                        <p className="form_div_error_paragraph" id="form_div_zip_code" role="alert">Please complete this form</p>
+                    </div>
+                </fieldset>
 
+                <div className="form_department">
+                    <label htmlFor="department">Department</label>
+                    <span className="department" ref={departmentRef}>
+                        <Select options={optionsDepartment} aria-labelledby="department-label"  />
+                    </span>
+                </div>
+
+                <Button className="form_button" aria-label="Submit form" />
+            </form>
+            {isModaleVisible ? <Modal_module aria-live="assertive"  /> : ""}
         </section>
     )
 }

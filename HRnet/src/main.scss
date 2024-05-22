@@ -4,11 +4,14 @@
 // imports des fichiers du dossier base
 @import "../sass/base/base.scss";
 
-//imports des fichiers du dossier utils
+//import des fichiers du dossier utils
 @import "../sass/utils/Mixin.scss";
 
 // import des fichiers du dossier components
 @import "../sass/components/Button.scss";
+
+//import des fichers du dosier page
+@import "../sass/pages/errorPage.scss";
 
 
 //imports des fichiers du dossier Layout

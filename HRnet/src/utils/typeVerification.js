@@ -1,3 +1,12 @@
+
+/**
+ * Cette fonction permet de vérifier que tous les champs soient de type string et non vides
+ * Elle renvoie true si aucune erreur n'est repérée, sinon elle renvoit false.
+ * @param {*} fieldName 
+ * @param {*} fieldValue 
+ * @returns {boolean}
+ */
+
 const validateTextField = (fieldName, fieldValue) => {
     const errorElement = document.querySelector(`#form_div_${fieldName}`);
     if (typeof fieldValue !== "string" || fieldValue.trim() === "") {
@@ -8,7 +17,12 @@ const validateTextField = (fieldName, fieldValue) => {
         return true;
     }
 };
-
+/**
+ * Cette fonction permet de gérer les différents champs du formulaire de création des employés
+ * Elle renvoie true si aucune erreur n'est repérée, sinon elle renvoit false.
+ * @param {Object} employeeData 
+ * @returns {boolean}
+ */
 const TypeVerification = (employeeData) => {
     console.log("voici les employees :", employeeData);
 

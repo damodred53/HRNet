@@ -1,11 +1,11 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
+// CreateSlice permet de gérer les différentes actions possible dans le reducer pour les utilisateurs.
 const employeeSlice = createSlice({
     name: "employee",
     initialState: [],
     reducers: {
         addEmployee: (state, action) => {
-            console.log("État avant la modification :", state);
             const { firstName, lastName, birthDate, startDate, stateValue, street, city, zipCode, departmentValue } = action.payload;
             const newEmployee = {
                 firstName,
@@ -19,12 +19,15 @@ const employeeSlice = createSlice({
                 departmentValue
             };
             state.push(newEmployee);
-            console.log("État après la modification :", state);
-            console.log(JSON.stringify(state))
         },
-        
+        getAllEmployees: (state) => {
+            console.log(JSON.stringify(state))
+            return state;
+        }
     }
 });
+
+// Création du store visant à stocker les données des employés
 
 export const store = configureStore({
     reducer: {
@@ -32,4 +35,4 @@ export const store = configureStore({
     }
 });
 
-export const { addEmployee } = employeeSlice.actions;
+export const { addEmployee, getAllEmployees } = employeeSlice.actions;

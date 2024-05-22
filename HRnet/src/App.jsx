@@ -4,7 +4,10 @@ import Form from "./Components/Form/Form";
 import { Provider } from "react-redux";
 import { store } from "./redux.js";
 
-
+/**
+ * Cette fonction permet l'affichage de la première page de l'application afin de créer des employés.
+ * @returns 
+ */
 function App() {
 
   return (
