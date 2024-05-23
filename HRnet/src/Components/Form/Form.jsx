@@ -7,26 +7,26 @@ import Select from "react-dropdown-select";
 import  optionsState from "./StateData.jsx";
 import optionsDepartment from "./DepartmentData.jsx";
 import Modal_module from "modal_florent_guyard";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux.js";
 import dateFormater from "../../utils/dateFormater.js";
 import typeVerification from "../../utils/typeVerification.js";
 
-
-const Form = ({employeeData}) => {
+const Form = () => {
 
     const [ birthDate, setBirthDate ] = useState();
     const [ startDate, setStartDate ] = useState();
     const [isModaleVisible, setIsModaleVisible] = useState(false);
-    const [formData, setFormData] = useState([]);
     const refDate = useRef(null);
     const refStart = useRef(null);
     const departmentRef = useRef(null);
     const stateRef = useRef(null);
-    
     const dispatch = useDispatch();
     
     useEffect(() => {
+
+// les éléments conditionnels ci-dessous ont pour fonction d'installer des atributs 
+// ARIA afin d'améliorer l'accessibilité de l'application
 
         if (refDate.current) 
         {
@@ -35,18 +35,14 @@ const Form = ({employeeData}) => {
             childDate.setAttribute('role', 'menu')
             const firstButton = childDate.querySelector('.react-date-picker__clear-button');
             const secondButton = childDate.querySelector('.react-date-picker__calendar-button');
-            
             firstButton.setAttribute('role', 'menuitem')
             firstButton.setAttribute('aria-label', 'remove the date')
             firstButton.setAttribute('title', 'Remove the date')
             secondButton.setAttribute('role', 'menuitem')
             secondButton.setAttribute('aria-label', 'Open the calendar');
             secondButton.setAttribute('title', 'Open the calendar')
-            /*console.log("la croix : ", firstButton)*/
             const firstIcon = firstButton.querySelector('.react-date-picker__clear-button__icon')
             firstIcon.setAttribute("aria-hidden", "true");
-            /*console.log("le petit calendrier :", secondButton)*/
-
 
         }
 
@@ -55,22 +51,20 @@ const Form = ({employeeData}) => {
             refStart.current.setAttribute('aria-label', 'Description');
             const childStart = refStart.current.children[1];
             childStart.setAttribute('role', "menu")
-            console.log(childStart)
             const firstButton = childStart.querySelector('.react-date-picker__clear-button');
             const secondButton = childStart.querySelector('.react-date-picker__calendar-button');
-            firstButton.setAttribute('role', 'menuitem')
-            firstButton.setAttribute('aria-label', 'remove the date')
-            firstButton.setAttribute('title', 'Remove the date')
-            secondButton.setAttribute('role', 'menuitem')
+            firstButton.setAttribute('role', 'menuitem');
+            firstButton.setAttribute('aria-label', 'remove the date');
+            firstButton.setAttribute('title', 'Remove the date');
+            secondButton.setAttribute('role', 'menuitem');
             secondButton.setAttribute('aria-label', 'Open the calendar');
-            secondButton.setAttribute('title', 'Open the calendar')
+            secondButton.setAttribute('title', 'Open the calendar');
         }
 
         if (departmentRef.current) {
             const childDepartment = departmentRef.current.children[0];
             const childDepartment2 = childDepartment.children[0];
-            childDepartment2.setAttribute('role', "menu")
-
+            childDepartment2.setAttribute('role', "menu");
         }
 
         if (stateRef.current) {
@@ -79,14 +73,6 @@ const Form = ({employeeData}) => {
             const childDepartment3 = childDepartment2.children[0]
             childDepartment3.setAttribute('role', "menu")
         }
-
-
-
-
-
-
-
- 
 
         const searchModal = document.querySelector('.modal');
 
@@ -103,15 +89,12 @@ const Form = ({employeeData}) => {
                     setIsModaleVisible(false);
                 }
             });
-            
         } 
     
     },[isModaleVisible])
 
     const handleChange = (event) => {
-        console.log(event)
-        /*const formatedBirthDate = dateFormater(event);*/
-        setBirthDate(event)
+        setBirthDate(event);
     };
 
     const handleChangeStart = (event) => {   
@@ -138,10 +121,8 @@ const Form = ({employeeData}) => {
         if (department) {
             departmentValue = department.querySelector(".react-dropdown-select-content").textContent;
         }
-
         const formatedBirthDate = dateFormater(birthDate);
         const formatedStartDate = dateFormater(startDate);
-
 
         employeeData = {
             firstName : firstName,
@@ -155,19 +136,14 @@ const Form = ({employeeData}) => {
             departmentValue : departmentValue
         }
 
-        
-      
         const isFormValid = typeVerification(employeeData)
        
         if (isFormValid) {
             dispatch(addEmployee(employeeData));
-            console.log(state);
             setIsModaleVisible(true);
         } else {
             throw new Error ('veuillez remplir tous les champs correctement');
         }
-            
-        
     }
 
     return (

@@ -5,7 +5,7 @@ import { store } from './redux.js';
 
 /**
  * Cette fonction gère la création de la page permettant d'afficher les employés précédemment crées
- * @returns 
+ * @returns {JSX}
  */
 const Employee = () => {
 

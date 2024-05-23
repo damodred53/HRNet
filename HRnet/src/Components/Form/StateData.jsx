@@ -241,8 +241,5 @@ const states = [
     value: index + 1,
     label: state.name,
   }));
-  
-
-  
 
   export default optionsState;

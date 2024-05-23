@@ -21,7 +21,6 @@ const employeeSlice = createSlice({
             state.push(newEmployee);
         },
         getAllEmployees: (state) => {
-            console.log(JSON.stringify(state))
             return state;
         }
     }

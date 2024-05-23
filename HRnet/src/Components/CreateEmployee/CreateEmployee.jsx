@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 const CreateEmployee = () => {
 
-
     return (
 
         <div className="createemployee">

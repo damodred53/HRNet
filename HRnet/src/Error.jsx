@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
 /**
- * 
- * @returns Fonction d'afficher une page d'erreur et un retour à la page d'accueil en cas de mauvais URL
+ * Fonction permettant d'afficher une page d'erreur et un retour à la page d'accueil en cas de mauvais URL
+ * @returns {JSX}
  */
 const Error = () => {
 
@@ -14,7 +14,7 @@ const Error = () => {
         </div>
 
                 <div className="error_page">
-                    <h1>Ceci est une page d'erreur, la page que vous recherchez n'existe pas</h1>
+                    <h1>Ceci est une page d&apos;erreur, la page que vous recherchez n&apos;existe pas</h1>
                 </div>
 
         <div className="header">

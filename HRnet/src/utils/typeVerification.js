@@ -24,7 +24,6 @@ const validateTextField = (fieldName, fieldValue) => {
  * @returns {boolean}
  */
 const TypeVerification = (employeeData) => {
-    console.log("voici les employees :", employeeData);
 
     // Validation de chaque champ de type texte
     const firstNameValid = validateTextField("firstname", employeeData.firstName);

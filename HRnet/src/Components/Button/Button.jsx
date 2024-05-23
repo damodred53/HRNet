@@ -1,6 +1,8 @@
-
+/**
+ * simple fonction permettant de gérer le bouton d'enregistrement des nouveaux employés
+ * @returns 
+ */
 const Button = () => {
-
 
     return (
 

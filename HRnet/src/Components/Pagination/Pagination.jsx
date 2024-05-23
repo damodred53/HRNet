@@ -5,24 +5,22 @@ import {
 } from 'material-react-table';
 import { useSelector } from "react-redux";
 
-
+/**
+ * fonction provenant d'un module et permettant de gérer la pagination 
+ * @returns {JSX.Element}
+ */
 export default function App() {
 
-
-    const data = useSelector(state => state.employee)
-    console.log(data)
-
-
-
+  const data = useSelector(state => state.employee)
 
   const columns = useMemo(
     () => [
-        {
-            accessorFn: (row) => row.firstName, //alternate way
-            id: 'first_name', //id required if you use accessorFn instead of accessorKey
-            header: 'First Name',
-            Header: () => <i>First Name</i>, //optional custom header render
-        },
+      {
+        accessorFn: (row) => row.firstName, //alternate way
+        id: 'first_name', //id required if you use accessorFn instead of accessorKey
+        header: 'First Name',
+        Header: () => <i>First Name</i>, //optional custom header render
+      },
       {
         accessorFn: (row) => row.lastName, //alternate way
         id: 'last_name', //id required if you use accessorFn instead of accessorKey
@@ -91,11 +89,6 @@ export default function App() {
     onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
     state: { rowSelection }, //manage your own state, pass it back to the table (optional)
   });
-
-  const someEventHandler = () => {
-    //read the table state during an event from the table instance
-    console.log(table.getState().sorting);
-  };
 
   return (
     <MaterialReactTable table={table} /> //other more lightweight MRT sub components also available
