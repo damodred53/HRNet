@@ -25,15 +25,17 @@ const validateTextField = (fieldName, fieldValue) => {
  */
 const TypeVerification = (employeeData) => {
 
+    console.log(employeeData)
     // Validation de chaque champ de type texte
     const firstNameValid = validateTextField("firstname", employeeData.firstName);
     const lastNameValid = validateTextField("lastname", employeeData.lastName);
     const streetValid = validateTextField("street", employeeData.street);
     const cityValid = validateTextField("city", employeeData.city);
     const zipCodeValid = validateTextField("zip_code", employeeData.zipCode);
-
+    const startDate = validateTextField("startDate", employeeData.startDate);
+    const birthDate = validateTextField("birthDate", employeeData.birthDate);
     // Vérification si tous les champs sont valides
-    if (firstNameValid && lastNameValid && streetValid && cityValid && zipCodeValid) {
+    if (firstNameValid && lastNameValid && streetValid && cityValid && zipCodeValid && startDate && birthDate) {
         return true;
     } else {
         return false;

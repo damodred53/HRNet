@@ -12,15 +12,25 @@ import { addEmployee } from "../../redux.js";
 import dateFormater from "../../utils/dateFormater.js";
 import typeVerification from "../../utils/typeVerification.js";
 
+
+/**
+ * fonction permettant l'affichage et la gestion du formulaire de création
+ * des employées
+ * @returns {JSX.Element}
+ */
 const Form = () => {
 
     const [ birthDate, setBirthDate ] = useState();
     const [ startDate, setStartDate ] = useState();
     const [isModaleVisible, setIsModaleVisible] = useState(false);
+
+    // Les useRefs permettent de récupérer les informations contenus dans le smodules de dates et 
+    // les menus déroulants
     const refDate = useRef(null);
     const refStart = useRef(null);
     const departmentRef = useRef(null);
     const stateRef = useRef(null);
+
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -78,11 +88,13 @@ const Form = () => {
 
         if(searchModal) {
 
+            // gestion de la disparition de la modale en cliquant sur la croix
             const searchValidation = document.querySelector('.modal_div_cross');
             searchValidation.addEventListener('click', () => {
                 setIsModaleVisible(false);
             });
 
+            // gestion de la disparition de la modale en cliquant sur la partie grisée de la modale
             const searchModal = document.querySelector('.modal:not(.modal_div)');
             searchModal.addEventListener('click', (event) => {
                 if (event.target === searchModal) {
@@ -107,39 +119,44 @@ const Form = () => {
         let stateValue;
         let departmentValue;
         let employeeData = {};
-        
-        const firstName = document.getElementById('first_name').value;
-        const lastName = document.getElementById('last_name').value;
-        const street = document.getElementById('street').value;
-        const city = document.getElementById('city').value;
-        const state = document.querySelector(".state");
-        if (state) {
-             stateValue = state.querySelector(".react-dropdown-select-content").textContent;
-        }
-        const zipCode = document.getElementById('zip_code').value;
-        const department = document.querySelector(".department");
-        if (department) {
-            departmentValue = department.querySelector(".react-dropdown-select-content").textContent;
-        }
-        const formatedBirthDate = dateFormater(birthDate);
-        const formatedStartDate = dateFormater(startDate);
 
-        employeeData = {
-            firstName : firstName,
-            lastName : lastName,
-            birthDate : formatedBirthDate,
-            startDate : formatedStartDate,
-            stateValue : stateValue,
-            street : street,
-            city : city,
-            zipCode : zipCode,
-            departmentValue : departmentValue
+            const firstName = document.getElementById('first_name').value;
+            const lastName = document.getElementById('last_name').value;
+            const street = document.getElementById('street').value;
+            const city = document.getElementById('city').value;
+            const state = document.querySelector(".state");
+            if (state) {
+                 stateValue = state.querySelector(".react-dropdown-select-content").textContent;
+            }
+            const zipCode = document.getElementById('zip_code').value;
+            const department = document.querySelector(".department");
+            if (department) {
+                departmentValue = department.querySelector(".react-dropdown-select-content").textContent;
+            }
+
+
+            const formatedBirthDate = dateFormater(birthDate);
+            const formatedStartDate = dateFormater(startDate);
+
+    
+            employeeData = {
+                firstName : firstName,
+                lastName : lastName,
+                birthDate : formatedBirthDate,
+                startDate : formatedStartDate,
+                stateValue : stateValue,
+                street : street,
+                city : city,
+                zipCode : zipCode,
+                departmentValue : departmentValue
         }
 
         const isFormValid = typeVerification(employeeData)
        
         if (isFormValid) {
+            // envoi dnas redux des donénes du formulaire
             dispatch(addEmployee(employeeData));
+            // apparition de la modale confirmant la création d'un employée
             setIsModaleVisible(true);
         } else {
             throw new Error ('veuillez remplir tous les champs correctement');
@@ -167,11 +184,13 @@ const Form = () => {
                 <div ref={refDate} className="form_div">
                     <label htmlFor="birth" id="form-birth">Date of Birth</label>
                     <DatePicker  onChange={(event) => handleChange(event)} value={birthDate} id="birth" aria-required="true" aria-labelledby="form-birth" />
+                    <p className="form_div_error_paragraph" id="form_div_birthDate" role="alert" >Veuillez compléter ce champ</p>
                 </div>
 
                 <div ref={refStart} className="form_div">
                     <label htmlFor="start" id="form-start">Start Date</label>
                     <DatePicker  onChange={(event) => handleChangeStart(event)} value={startDate} id="start" aria-required="true" aria-labelledby="form-start" />
+                    <p className="form_div_error_paragraph" id="form_div_startDate" role="alert" >Veuillez compléter ce champ</p>
                 </div>
 
                 <fieldset className="form_fieldset" aria-labelledby="address-legend">
@@ -216,10 +235,5 @@ const Form = () => {
         </section>
     )
 }
-
-
-
-
-
 
 export default Form;
