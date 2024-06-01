@@ -12,12 +12,12 @@ import { addEmployee } from "../../redux.js";
 import dateFormater from "../../utils/dateFormater.js";
 import typeVerification from "../../utils/typeVerification.js";
 
-
 /**
  * fonction permettant l'affichage et la gestion du formulaire de création
  * des employées
  * @returns {JSX.Element}
  */
+
 const Form = () => {
 
     const [ birthDate, setBirthDate ] = useState();
@@ -134,11 +134,10 @@ const Form = () => {
                 departmentValue = department.querySelector(".react-dropdown-select-content").textContent;
             }
 
-
+            /* modification du format des dates*/
             const formatedBirthDate = dateFormater(birthDate);
             const formatedStartDate = dateFormater(startDate);
 
-    
             employeeData = {
                 firstName : firstName,
                 lastName : lastName,
@@ -151,10 +150,11 @@ const Form = () => {
                 departmentValue : departmentValue
         }
 
-        const isFormValid = typeVerification(employeeData)
+        /* Vérification du typage des données */
+        const isFormValid = typeVerification(employeeData);
        
         if (isFormValid) {
-            // envoi dnas redux des donénes du formulaire
+            // envoi dans redux des données du formulaire
             dispatch(addEmployee(employeeData));
             // apparition de la modale confirmant la création d'un employée
             setIsModaleVisible(true);
@@ -184,13 +184,13 @@ const Form = () => {
                 <div ref={refDate} className="form_div">
                     <label htmlFor="birth" id="form-birth">Date of Birth</label>
                     <DatePicker  onChange={(event) => handleChange(event)} value={birthDate} id="birth" aria-required="true" aria-labelledby="form-birth" />
-                    <p className="form_div_error_paragraph" id="form_div_birthDate" role="alert" >Veuillez compléter ce champ</p>
+                    <p className="form_div_error_paragraph" id="form_div_birthDate" role="alert" >Please complete this field</p>
                 </div>
 
                 <div ref={refStart} className="form_div">
                     <label htmlFor="start" id="form-start">Start Date</label>
                     <DatePicker  onChange={(event) => handleChangeStart(event)} value={startDate} id="start" aria-required="true" aria-labelledby="form-start" />
-                    <p className="form_div_error_paragraph" id="form_div_startDate" role="alert" >Veuillez compléter ce champ</p>
+                    <p className="form_div_error_paragraph" id="form_div_startDate" role="alert" >Please complete this field</p>
                 </div>
 
                 <fieldset className="form_fieldset" aria-labelledby="address-legend">
@@ -231,7 +231,7 @@ const Form = () => {
 
                 <Button className="form_button" aria-label="Submit form" />
             </form>
-            {isModaleVisible ? <Modal_module aria-live="assertive"  /> : ""}
+            {isModaleVisible ? <Modal_module aria-live="assertive" textContent="employee created !!" /> : ""}
         </section>
     )
 }

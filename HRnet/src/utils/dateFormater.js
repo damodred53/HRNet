@@ -11,7 +11,7 @@ const dateFormater = (date) => {
     const mois = (date.getMonth() +1).toString().padStart(2, '0');
     const annee = date.getFullYear();
     
-    formatedDate = `${jour}/${mois}/${annee}`;
+    formatedDate = `${mois}/${jour}/${annee}`;
     }
     return formatedDate;
 }
